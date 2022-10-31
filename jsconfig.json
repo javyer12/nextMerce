@@ -7,8 +7,6 @@
                         "@layout/*": ["layout/*"],
                         "@common/*": ["common/*"],
                         "@components/*": ["components/*"],
-                        "@hook/*": ["hook/*"],
-                        "@services/*": ["services/*"],
                 }
         }
 }

@@ -1,7 +1,6 @@
 import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { BsXCircle } from 'react-icons/bs';
-import "../../node_modules/tailwindcss/tailwind.css";
 
 export default function Modal({ open, setOpen, children }) {
         const cancelButtonRef = useRef(null);
