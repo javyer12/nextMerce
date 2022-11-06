@@ -1,12 +1,10 @@
 import { Fragment, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import me from '@styles/img/me.png';
+
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 
-const navigation = [
-        { name: 'Dashboard', href: '/dashboard', current: true },
-        { name: 'Products', href: '/dashboard/products/', current: false },
-        { name: 'Sells', href: '/dashboard/sold', current: false },
-];
 const userNavigation = [
         { name: 'Your Profile', href: '#' },
         { name: 'Settings', href: '#' },
@@ -19,25 +17,33 @@ function classNames(...classes) {
 
 export default function Header() {
         const [ log, setLog ] = useState(true);
+        const router = useRouter();
+        const route = router.asPath.substring(1);
+        console.log(route);
+        const navigation = [
+                { name: 'Resume', href: '/resume', current: route === 'resume' ? true : false }, //aqui agregar la parte de las herramientas
+                { name: 'Projects', href: '/projects', current: route === 'projects' ? true : false },
+                { name: 'Contact', href: '/contact', current: route === 'contact' ? true : false },
+        ];
         return (
                 <>
-                        <Disclosure as="nav" className="bg-gray-800">
+                        <Disclosure as="nav" className=" bg-gray-100">
                                 {({ open }) => (
                                         <>
-                                                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                                <div className=" static max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-13">
                                                         <div className="flex items-center justify-between h-16">
                                                                 <div className="flex items-center">
                                                                         <div className="flex-shrink-0">
                                                                                 <Link href="/"><a><img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" /></a></Link>
                                                                         </div>
-                                                                        <div className="hidden md:block">
-                                                                                <div className="ml-10 flex items-baseline space-x-4">
+                                                                        <div className="hidden md:block  items-center">
+                                                                                <div className="ml-10 flex items-baseline space-x-4 ">
                                                                                         {navigation.map((item) => (
                                                                                                 <Link href={item.href}>
                                                                                                         <a
                                                                                                                 key={item.name}
                                                                                                                 href={item.href}
-                                                                                                                className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
+                                                                                                                className={classNames(item.current ? 'bg-gray-200 text-green-700' : 'text-gray-500 hover:bg-gray-300 hover:text-black', 'px-3 py-2 rounded-md text-sm font-medium')}
                                                                                                                 aria-current={item.current ? 'page' : undefined}
                                                                                                         >
                                                                                                                 {item.name}
@@ -49,20 +55,13 @@ export default function Header() {
                                                                 </div>
                                                                 <div className="hidden md:block">
                                                                         <div className="ml-4 flex items-center md:ml-6">
-                                                                                <button
-                                                                                        type="button"
-                                                                                        className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                                                                                >
-                                                                                        <span className="sr-only">View notifications</span>
-                                                                                </button>
-
                                                                                 {/* Profile dropdown */}
                                                                                 <Menu as="div" className="ml-3 relative">
                                                                                         <div>
-                                                                                                <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                                                                <Menu.Button className="max-w-sm bg-gray-200 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-white">
                                                                                                         <span className="sr-only">Open user menu</span>
-                                                                                                        <img className="h-8 w-8 rounded-full"
-                                                                                                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                                                                                        <img className="h-11 w-11 rounded-full"
+                                                                                                                src={me.src}
                                                                                                                 alt="Workflow" />
                                                                                                 </Menu.Button>
                                                                                         </div>
@@ -115,7 +114,7 @@ export default function Header() {
                                                                         </Disclosure.Button>
                                                                 ))}
                                                         </div>
-                                                        <div className="pt-4 pb-3 border-t border-gray-700">
+                                                        <div className="pt-4 pb-3 border-t border-green-700">
                                                                 <div className="flex items-center px-5">
                                                                         <div className="flex-shrink-0">
                                                                                 <img className="h-10 w-10 rounded-full"

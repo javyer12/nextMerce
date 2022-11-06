@@ -1,157 +1,345 @@
 
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import ecommerce from '@styles/img/ecommerce4.png';
-import carrito from '@styles/img/carrito.png';
-import "../../node_modules/tailwindcss/tailwind.css";
+import { Fragment, useState } from 'react';
+import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
+import me from '@styles/img/me.png';
 
-const navigation = [
-  { name: 'Product', href: '/dashboard/products' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+const sortOptions = [
+  { name: 'Github', href: '#', current: false },
+  { name: 'Twitter', href: '#', current: false },
+  { name: 'Linkedin', href: '#', current: false },
+  { name: 'Platzi', href: '#', current: false },
 ]
+const subCategories = [
+  // { name: 'Francisco Murillo', href: '#' },
+  { name: 'Experiences', href: '#' },
+]
+const filters = [
+  {
+    id: 'frontend',
+    name: 'Front-End',
+    options: [
+      { value: 'javascript', label: 'Java Script', checked: false },
+      { value: 'react', label: 'React JS', checked: false },
+      { value: 'next', label: 'Next JS', checked: true },
+      { value: 'bootstrap', label: 'Bootstrap', checked: false },
+      { value: 'webpack', label: 'Webpack', checked: false },
+      { value: 'material', label: 'Material', checked: false },
+    ],
+  },
+  {
+    id: 'backend',
+    name: 'Back-End',
+    options: [
+      { value: 'node', label: 'Node JS', checked: false },
+      { value: 'python', label: 'Python', checked: false },
+      { value: 'c#', label: 'C#', checked: true },
+      { value: 'express', label: 'Express JS', checked: false },
+      { value: 'postgtres', label: 'Postgre SQL', checked: false },
+    ],
+  },
+  {
+    id: 'soft',
+    name: 'Soft Skill',
+    options: [
+      { value: 'communication', label: 'Communication', checked: false },
+      { value: 'leadership', label: 'Leadership', checked: false },
+      { value: 'creativity', label: 'Creativity', checked: false },
+      { value: 'adaptability', label: 'Adaptability', checked: false },
+      { value: 'teamwork', label: 'Teamwork', checked: false },
+    ],
+  },
+]
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export default function Home() {
+  const [ mobileFiltersOpen, setMobileFiltersOpen ] = useState(false)
+
   return (
-    <div className="relative overflow-hidden bg-white">
-      <div className="mx-auto max-w-7xl">
-        <div className="relative z-10 bg-white pb-8 sm:pb-16 md:pb-20 lg:w-full lg:max-w-2xl lg:pb-28 xl:pb-32">
-          <svg
-            className="absolute inset-y-0 right-0 hidden h-full w-48 translate-x-1/2 transform text-white lg:block"
-            fill="currentColor"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <polygon points="50,0 100,0 50,100 0,100" />
-          </svg>
-
-          <Popover>
-            <div className="relative px-4 pt-6 sm:px-6 lg:px-8">
-              <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
-                <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
-                  <div className="flex w-full items-center justify-between md:w-auto">
-                    <a href="#">
-                      <span className="sr-only">Your Company</span>
-                      <img
-                        alt="Your Company"
-                        className="h-8 w-auto sm:h-10"
-                        src={carrito.src}
-                      />
-                    </a>
-                    <div className="-mr-2 flex items-center md:hidden">
-                      <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                        <span className="sr-only">Open main menu</span>
-                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                      </Popover.Button>
-                    </div>
-                  </div>
-                </div>
-                <div className="hidden md:ml-10 md:block md:space-x-8 md:pr-4">
-                  {navigation.map((item) => (
-                    <a key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
-                      {item.name}
-                    </a>
-                  ))}
-                  <a href="/login" className="font-medium text-green-600 hover:text-indigo-500">
-                    Log in
-                  </a>
-                </div>
-              </nav>
-            </div>
-
-            <Transition
+    <div className="rounded-lg shadow-2xl  bg-white w-full">
+      <div>
+        {/* Mobile filter dialog */}
+        <Transition.Root show={mobileFiltersOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-40 lg:hidden w-full" onClose={setMobileFiltersOpen}>
+            <Transition.Child
               as={Fragment}
-              enter="duration-150 ease-out"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="duration-100 ease-in"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
+              enter="transition-opacity ease-linear duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity ease-linear duration-300"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
-              <Popover.Panel
-                focus
-                className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition md:hidden"
-              >
-                <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
-                  <div className="flex items-center justify-between px-5 pt-4">
-                    <div>
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        alt=""
-                      />
-                    </div>
-                    <div className="-mr-2">
-                      <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                        <span className="sr-only">Close main menu</span>
-                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                      </Popover.Button>
-                    </div>
-                  </div>
-                  <div className="space-y-1 px-2 pt-2 pb-3">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                  <a
-                    href="#"
-                    className="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-indigo-600 hover:bg-gray-100"
-                  >
-                    Log in
-                  </a>
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
 
-          <main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-            <div className="sm:text-center lg:text-left">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">The internet doesn't divide us, </span>{' '}
-                <span className="block text-green-600 xl:inline">it gathers us.</span>
-              </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-                Basic settings on Next js to develop a landing page, It's waiting for you to start coding your logic.
-              </p>
-              <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                <div className="rounded-md shadow">
+            <div className="fixed inset-0 z-40 flex">
+              <Transition.Child
+                as={Fragment}
+                enter="transition ease-in-out duration-300 transform"
+                enterFrom="translate-x-full"
+                enterTo="translate-x-0"
+                leave="transition ease-in-out duration-300 transform"
+                leaveFrom="translate-x-0"
+                leaveTo="translate-x-full"
+              >
+                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                  <div className="flex items-center justify-between px-4">
+                    <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+                    <button
+                      type="button"
+                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                      onClick={() => setMobileFiltersOpen(false)}
+                    >
+                      <span className="sr-only">Close menu</span>
+                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+
+                    {/* Filters */}
+                  </div>
+                  <form className="mt-4 border-t border-gray-200">
+                    <h3 className="sr-only">Categories</h3>
+                    <ul role="list" className="px-2 py-3 font-medium text-gray-900">
+                      {subCategories.map((category) => (
+                        <li key={category.name}>
+                          <a href={category.href} className="block px-2 py-3">
+                            {category.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+
+
+                    {filters.map((section) => (
+                      <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                        {({ open }) => (
+                          <div className="overflow-auto">
+
+                            <h3 className="-mx-2 -my-3 flow-root">
+                              <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
+                                <span className="font-medium text-gray-900">{section.name}</span>
+                                <span className="ml-6 flex items-center">
+                                  {open ? (
+                                    <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                                  ) : (
+                                    <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                  )}
+                                </span>
+                              </Disclosure.Button>
+                            </h3>
+                            <Disclosure.Panel className="pt-6">
+                              <div className="space-y-6">
+                                {section.options.map((option, optionIdx) => (
+                                  <div key={option.value} className="flex items-center">
+                                    <input
+                                      id={`filter-mobile-${section.id}-${optionIdx}`}
+                                      name={`${section.id}[]`}
+                                      defaultValue={option.value}
+                                      type="checkbox"
+                                      defaultChecked={option.checked}
+                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                    <label
+                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                      className="ml-3 min-w-0 flex-1 text-gray-500"
+                                    >
+                                      {option.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                            </Disclosure.Panel>
+                          </div>
+                        )}
+                      </Disclosure>
+                    ))}
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition.Root>
+
+        <main className="mx-auto max-w-7xl  p-3 sm:px-6 lg:px-8">
+          <div className="flex items-baseline justify-between border-b rounded-lg border-gray-100 pt-5 pb-6">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Front-End Developer</h1>
+
+            <div className="flex items-center">
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                    Social Media
+                    <ChevronDownIcon
+                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                  </Menu.Button>
+                </div>
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">
+                      {sortOptions.map((option) => (
+                        <Menu.Item key={option.name}>
+                          {({ active }) => (
+                            <a
+                              href={option.href}
+                              className={classNames(
+                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm'
+                              )}
+                            >
+                              {option.name}
+                            </a>
+                          )}
+                        </Menu.Item>
+                      ))}
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+
+
+              <button
+                type="button"
+                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                onClick={() => setMobileFiltersOpen(true)}
+              >
+                <span className="sr-only">Filters</span>
+                <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+
+          <section aria-labelledby="products-heading" className="pt-6 pb-5">
+            <h2 id="products-heading" className="sr-only">
+              Profile
+            </h2>
+
+            <div className="grid grid-cols-1 gap-x-8 gap-y-10   lg:grid-cols-4">
+              {/* Filters */}
+              <form className="hidden lg:block border-r border-gray-200">
+                <div className=" p-2 mb-3  rounded-lg">
+                  <img src='https://i.pinimg.com/originals/49/3f/a0/493fa0f13970ab3ef29375669f670451.jpg' className="bg-clip-content  rounded-full " width='inherit' height="60%" alt="me" />
+                  {/* <img src={me.src} className="bg-clip-content  rounded-full " width='inherit' height="60%" alt="me" /> */}
+                </div>
+                <h3 className="sr-only">Categories</h3>
+                <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
+                  {subCategories.map((category) => (
+                    <li key={category.name}>
+                      <a href={category.href}>{category.name}</a>
+                    </li>
+                  ))}
+                </ul>
+
+                {filters.map((section) => (
+                  <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
+                    {({ open }) => (
+                      <>
+                        <h3 className="-my-3 flow-root">
+                          <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                            <span className="font-medium text-gray-900">{section.name}</span>
+                            <span className="ml-6 flex items-center">
+                              {open ? (
+                                <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                              ) : (
+                                <ChevronDownIcon
+                                  className=" mr-1  h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </h3>
+                        <Disclosure.Panel className="pt-2">
+                          <div className="space-y-4">
+                            {section.options.map((option, optionIdx) => (
+                              <div key={option.value} className="flex items-center">
+                                {/* <input
+                                  id={`filter-${section.id}-${optionIdx}`}
+                                  name={`${section.id}[]`}
+                                  defaultValue={option.value}
+                                  type="checkbox"
+                                  defaultChecked={option.checked}
+                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                /> */}
+                                <label
+                                  htmlFor={`filter-${section.id}-${optionIdx}`}
+                                  className="ml-3 text-sm text-green-600"
+                                >
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
+                <div className="rounded-md shadow max-w-xl  mt-3 ml-10 mr-10">
                   <a
-                    href="/dashboard/products"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-50 px-8 py-3 text-base font-medium text-green-600 hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
+                    href="/resume"
+                    className="flex  p-0 m-0 items-center justify-center rounded-md border border-transparent bg-gray-50  text-base font-small text-black hover:text-white hover:bg-black md:py-4 md:px-10 md:text-lg"
                   >
-                    New Products
+                    See Skill
                   </a>
                 </div>
-                <div className="mt-3 sm:mt-0 sm:ml-3">
-                  <a
-                    href="/dashboard"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-100 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200 md:py-4 md:px-10 md:text-lg"
-                  >
-                    The most sold
-                  </a>
-                </div>
+              </form>
+
+              {/* Product grid */}
+              <div className="lg:col-span-3">
+                {/* <Surface /> */}
+                <main className="  mx-auto flex  max-w-7xl   sm:mt-12 sm:px-6 md:mt-8 lg:mt-0 lg:px-8 ">
+                  <div className="sm:text-center lg:text-left ">
+                    <h1 className="text-4xl font-bold tracking-tight  mb-10 text-gray-900 sm:text-5xl md:text-6xl">
+                      <span className="block xl:inline">Francisco </span>{' '}
+                      <span className="block  text-green-500 xl:inline"> Murillo</span>{' '}
+                    </h1>
+                    <div className="ml-10  lg:text-justify ">
+                      <p className=" text-base m-20 text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
+                        Francisco is a person who loves evolution, human and technological development, lover of new technologies that help us build a digital world in the near future, I am a frontend dev-junior with JavaScript, React js others, passionate about it sports and the 7 arts.
+                      </p>
+                    </div>
+                    <div className=" sm:mt-8 sm:flex sm:justify-center lg:justify">
+                      <div className="rounded-md shadow ">
+                        <a
+                          href="https://drive.google.com/file/d/1OTdoXYhdaEldDrPEIO8lF2r41r3I1H-c/view?usp=sharing"
+                          className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-50 px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white md:py-4 md:px-10 md:text-lg"
+                        >
+                          Watch CV!
+                        </a>
+                      </div>
+                      <div className=" sm:mt-0  sm:ml-3">
+                        <a
+                          href="/contact"
+                          className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-200 px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white md:py-4 md:px-10 md:text-lg"
+                        >
+                          Contact us!!
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </main>
+
               </div>
             </div>
-          </main>
-        </div>
-      </div>
-      <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img
-          className="sm:h-72 mt-40 m-auto md:h-96 "
-          width="75%"
-          height="75%"
-          src={ecommerce.src}
-          alt="ecommerce"
-        />
-      </div>
-    </div>
+          </section>
+        </main >
+      </div >
+    </div >
   )
 }

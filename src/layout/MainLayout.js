@@ -5,10 +5,11 @@ import Nav from '@common/Nav';
 
 export default function MainLayout({ children }) {
         return (
+                //options: orange, black, gray
                 <Fragment>
-                        <div className="min-h-full">
+                        <div className="max-h-full bg-gray-100 m-0 p-0">
                                 <Header />
-                                <Nav />
+                                {/* <Nav /> */}
                                 <main>
                                         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                                                 {children}
