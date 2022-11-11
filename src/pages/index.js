@@ -1,19 +1,24 @@
-
 import { Fragment, useState } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { AiOutlineGithub } from 'react-icons/ai';
+import { GrTwitter } from 'react-icons/gr';
+import { BsLinkedin } from 'react-icons/bs';
+import { SiPlatzi } from 'react-icons/si';
+import { FaDev } from 'react-icons/fa';
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
 import me from '@styles/img/me.png';
 
-const sortOptions = [
-  { name: 'Github', href: '#', current: false },
-  { name: 'Twitter', href: '#', current: false },
-  { name: 'Linkedin', href: '#', current: false },
-  { name: 'Platzi', href: '#', current: false },
+const socialMedia = [
+  { id: 1, name: <AiOutlineGithub />, href: 'https://github.com/javyer12', current: false },
+  { id: 2, name: <GrTwitter />, href: 'https://twitter.com/FBollys', current: false },
+  { id: 3, name: <BsLinkedin />, href: '#', current: false },
+  { id: 4, name: <SiPlatzi />, href: 'https://platzi.com/p/franmurillo/', current: false },
+  { id: 4, name: <FaDev />, href: 'https://dev.to/javyer12', current: false },
 ]
 const subCategories = [
   // { name: 'Francisco Murillo', href: '#' },
-  { name: 'Experiences', href: '#' },
+  { name: ' Creating a world more comfortable', href: '#' },
 ]
 const filters = [
   {
@@ -51,7 +56,10 @@ const filters = [
     ],
   },
 ]
-
+// const breadcrumbs = [
+//   { id: 1, name: 'Men', href: '#' },
+//   { id: 2, name: 'Clothing', href: '#' },
+// ];
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -60,7 +68,7 @@ export default function Home() {
   const [ mobileFiltersOpen, setMobileFiltersOpen ] = useState(false)
 
   return (
-    <div className="rounded-lg shadow-2xl  bg-white w-full">
+    <div className="rounded-lg  bg-white w-full">
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -103,10 +111,10 @@ export default function Home() {
                   </div>
                   <form className="mt-4 border-t border-gray-200">
                     <h3 className="sr-only">Categories</h3>
-                    <ul role="list" className="px-2 py-3 font-medium text-gray-900">
+                    <ul role="list" className="px-2 py-3 font-medium text-green-900">
                       {subCategories.map((category) => (
                         <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
+                          <a href={category.href} className="block px-1 py-2">
                             {category.name}
                           </a>
                         </li>
@@ -164,20 +172,39 @@ export default function Home() {
           </Dialog>
         </Transition.Root>
 
-        <main className="mx-auto max-w-7xl  p-3 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b rounded-lg border-gray-100 pt-5 pb-6">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Front-End Developer</h1>
-
-            <div className="flex items-center">
+        <main className=" max-w-7xl   sm:px-6 lg:px-1">
+          <div className="flex items-baseline justify-between border-b rounded-lg border-gray-100 pt-2 ml-0 ">
+            <h1 className="text-4xl font-bold tracking-tight m-2 text-gray-900">Front-End Developer</h1>
+            {/* aqui va flex */}
+            <div className="  items-center">
               <Menu as="div" className="relative inline-block text-left">
+
+                {/* breadcrumb */}
                 <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    Social Media
-                    <ChevronDownIcon
-                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                  </Menu.Button>
+                  <nav aria-label="Breadcrumb">
+                    <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                      {socialMedia.map((media) => (
+                        <li key={media.id}>
+                          <div className="flex items-center">
+                            <a href={media.href} className="mr-2 text-lg font-medium text-gray-800">
+                              {media.name}
+                            </a>
+                            <svg
+                              width={20}
+                              height={23}
+                              viewBox="0 0 16 20"
+                              fill="currentColor"
+                              xmlns="http://www.w3.org/2000/svg"
+                              aria-hidden="true"
+                              className="h-5 w-4 text-gray-300"
+                            >
+                              <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                            </svg>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  </nav>
                 </div>
 
                 <Transition
@@ -191,13 +218,13 @@ export default function Home() {
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      {sortOptions.map((option) => (
+                      {socialMedia.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
                             <a
                               href={option.href}
                               className={classNames(
-                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                                option.current ? 'font-medium text-gray-700' : 'text-gray-500',
                                 active ? 'bg-gray-100' : '',
                                 'block px-4 py-2 text-sm'
                               )}
@@ -237,7 +264,7 @@ export default function Home() {
                   {/* <img src={me.src} className="bg-clip-content  rounded-full " width='inherit' height="60%" alt="me" /> */}
                 </div>
                 <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
+                <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-green-900">
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href}>{category.name}</a>
@@ -307,11 +334,12 @@ export default function Home() {
                   <div className="sm:text-center lg:text-left ">
                     <h1 className="text-4xl font-bold tracking-tight  mb-10 text-gray-900 sm:text-5xl md:text-6xl">
                       <span className="block xl:inline">Francisco </span>{' '}
-                      <span className="block  text-green-500 xl:inline"> Murillo</span>{' '}
+                      <span className="block  text-green-900 xl:inline"> Murillo</span>{' '}
                     </h1>
                     <div className="ml-10  lg:text-justify ">
-                      <p className=" text-base m-20 text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-                        Francisco is a person who loves evolution, human and technological development, lover of new technologies that help us build a digital world in the near future, I am a frontend dev-junior with JavaScript, React js others, passionate about it sports and the 7 arts.
+                      <p className=" text-base m-20 text-gray-400 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
+                        Francisco is a person who loves evolution, human and technological development, lover of new technologies that help us build a digital world in the near future,
+                        I am passionate about developing  with JavaScript, React js, Python others, passionate about it sports and the 7 arts.
                       </p>
                     </div>
                     <div className=" sm:mt-8 sm:flex sm:justify-center lg:justify">

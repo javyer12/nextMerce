@@ -7,7 +7,7 @@ export default function MainLayout({ children }) {
         return (
                 //options: orange, black, gray
                 <Fragment>
-                        <div className="max-h-full bg-gray-100 m-0 p-0">
+                        <div className="max-h-full bg-white m-0 p-0">
                                 <Header />
                                 {/* <Nav /> */}
                                 <main>

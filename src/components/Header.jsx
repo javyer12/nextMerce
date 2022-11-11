@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import f from '@styles/img/f.png';
 import me from '@styles/img/me.png';
 
 import { Disclosure, Menu, Transition } from '@headlessui/react';
@@ -27,14 +28,14 @@ export default function Header() {
         ];
         return (
                 <>
-                        <Disclosure as="nav" className=" bg-gray-100">
+                        <Disclosure as="nav" className=" bg-gray-50">
                                 {({ open }) => (
                                         <>
                                                 <div className=" static max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-13">
                                                         <div className="flex items-center justify-between h-16">
                                                                 <div className="flex items-center">
                                                                         <div className="flex-shrink-0">
-                                                                                <Link href="/"><a><img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" /></a></Link>
+                                                                                <Link href="/"><a><img className="h-8 w-8 hover:bg-white hover:m-2 hover:rounded-full" src={f.src} alt="Workflow" /></a></Link>
                                                                         </div>
                                                                         <div className="hidden md:block  items-center">
                                                                                 <div className="ml-10 flex items-baseline space-x-4 ">
@@ -43,7 +44,7 @@ export default function Header() {
                                                                                                         <a
                                                                                                                 key={item.name}
                                                                                                                 href={item.href}
-                                                                                                                className={classNames(item.current ? 'bg-gray-200 text-green-700' : 'text-gray-500 hover:bg-gray-300 hover:text-black', 'px-3 py-2 rounded-md text-sm font-medium')}
+                                                                                                                className={classNames(item.current ? 'bg-gray-200 text-green-700' : 'text-green-900 hover:bg-gray-300 hover:text-black', 'px-3 py-2 rounded-md text-sm font-medium')}
                                                                                                                 aria-current={item.current ? 'page' : undefined}
                                                                                                         >
                                                                                                                 {item.name}
@@ -61,7 +62,8 @@ export default function Header() {
                                                                                                 <Menu.Button className="max-w-sm bg-gray-200 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-white">
                                                                                                         <span className="sr-only">Open user menu</span>
                                                                                                         <img className="h-11 w-11 rounded-full"
-                                                                                                                src={me.src}
+                                                                                                                // src={me.src}
+                                                                                                                src="https://i.pinimg.com/originals/49/3f/a0/493fa0f13970ab3ef29375669f670451.jpg"
                                                                                                                 alt="Workflow" />
                                                                                                 </Menu.Button>
                                                                                         </div>
