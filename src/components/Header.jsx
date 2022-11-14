@@ -28,14 +28,14 @@ export default function Header() {
         ];
         return (
                 <>
-                        <Disclosure as="nav" className=" bg-gray-50">
+                        <Disclosure as="nav" className=" bg-gray-50 border-b border-spacing-1 border-gray-300">
                                 {({ open }) => (
                                         <>
-                                                <div className=" static max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-13">
+                                                <div className=" static max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28">
                                                         <div className="flex items-center justify-between h-16">
-                                                                <div className="flex items-center">
+                                                                <div className="flex items-center mt-11">
                                                                         <div className="flex-shrink-0">
-                                                                                <Link href="/"><a><img className="h-8 w-8 hover:bg-white hover:m-2 hover:rounded-full" src={f.src} alt="Workflow" /></a></Link>
+                                                                                <Link href="/"><a><img className="h-15 w-11 hover:bg-white hover:m-2 hover:rounded-full" src={f.src} alt="Workflow" /></a></Link>
                                                                         </div>
                                                                         <div className="hidden md:block  items-center">
                                                                                 <div className="ml-10 flex items-baseline space-x-4 ">
@@ -44,7 +44,7 @@ export default function Header() {
                                                                                                         <a
                                                                                                                 key={item.name}
                                                                                                                 href={item.href}
-                                                                                                                className={classNames(item.current ? 'bg-gray-200 text-green-700' : 'text-green-900 hover:bg-gray-300 hover:text-black', 'px-3 py-2 rounded-md text-sm font-medium')}
+                                                                                                                className={classNames(item.current ? 'bg-gray-200 text-green-700' : 'text-green-900 hover:bg-gray-300 hover:text-black', 'px-3 py-2 rounded-md text-lg font-medium')}
                                                                                                                 aria-current={item.current ? 'page' : undefined}
                                                                                                         >
                                                                                                                 {item.name}
@@ -55,7 +55,7 @@ export default function Header() {
                                                                         </div>
                                                                 </div>
                                                                 <div className="hidden md:block">
-                                                                        <div className="ml-4 flex items-center md:ml-6">
+                                                                        <div className="ml-4 mt-11 flex items-center md:ml-6">
                                                                                 {/* Profile dropdown */}
                                                                                 <Menu as="div" className="ml-3 relative">
                                                                                         <div>

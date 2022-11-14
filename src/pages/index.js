@@ -186,7 +186,10 @@ export default function Home() {
                       {socialMedia.map((media) => (
                         <li key={media.id}>
                           <div className="flex items-center">
-                            <a href={media.href} className="mr-2 text-lg font-medium text-gray-800">
+                            <a href={media.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="mr-2 text-lg font-medium text-gray-800">
                               {media.name}
                             </a>
                             <svg
@@ -345,7 +348,9 @@ export default function Home() {
                     <div className=" sm:mt-8 sm:flex sm:justify-center lg:justify">
                       <div className="rounded-md shadow ">
                         <a
-                          href="https://drive.google.com/file/d/1OTdoXYhdaEldDrPEIO8lF2r41r3I1H-c/view?usp=sharing"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://drive.google.com/file/d/1W9OUs25_ediDNJnjq-1keMOkNcdb1mIb/view?usp=share_link"
                           className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-50 px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white md:py-4 md:px-10 md:text-lg"
                         >
                           Watch CV!
